@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+.idea/
+
+# for Django project (Git basic slide)
+/site
+# configuration data in external files
+# (may be confidential) used by python-decouple
+settings.ini
+config.sh
+
