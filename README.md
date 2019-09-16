@@ -5,8 +5,8 @@ Web Application that user can vote a poll from Django Tutorial parts 1-5 in [Dja
 ## Requirements
 
 * Python 3.6 or newer
-
 * Django 2.1.2 or newer
+* Python add-on modules as in [requirements.txt](requirements.txt)
 
 ## How to run
 
