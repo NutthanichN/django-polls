@@ -3,6 +3,11 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 {% if user.is_authenticated %}
+{% for vote in user.vote_set.all %}
+    {% if vote.question == question %}
+        <p>Previous vote: {{ vote.choice.choice_text }}</p>
+    {% endif %}
+{% endfor %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% else %}
 <form>
