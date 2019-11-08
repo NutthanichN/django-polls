@@ -1,3 +1,16 @@
+<h2>Hot Topics</h2>
+{% if user.is_authenticated %}
+    Welcome back,
+    {% if user.username != '' %}
+        {{ user.first_name }}
+    {% else %}
+        {{ user.username.title }}
+    {% endif %}
+{% else %}
+    {# Hint: use {% url 'login' %} #}
+    Please <a href="{% url 'login' %}">login</a> to vote for a topic.
+{% endif %}
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -7,3 +20,5 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+<a href="{% url 'logout' %}">Logout</a>
