@@ -54,6 +54,8 @@ def vote(request, question_id):
     else:
         try:
             user_vote = Vote.objects.get(question_id=question_id, user_id=request.user.id)
+            if user_vote.choice == selected_choice:
+                return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
             old_choice = user_vote.choice
             old_choice.votes -= 1
             old_choice.save()
