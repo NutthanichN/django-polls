@@ -4,8 +4,9 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 
 # Create your views here.
 
@@ -51,6 +52,20 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice",
         })
     else:
+        try:
+            user_vote = Vote.objects.get(question_id=question_id, user_id=request.user.id)
+            if user_vote.choice == selected_choice:
+                return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
+            old_choice = user_vote.choice
+            old_choice.votes -= 1
+            old_choice.save()
+            # set new selected choice to user's Vote
+            user_vote.choice_id = selected_choice.id
+            user_vote.save()
+        except ObjectDoesNotExist:
+            new_vote = Vote(question=question, choice=selected_choice, user=request.user)
+            new_vote.save()
+
         selected_choice.votes += 1
         selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
