@@ -1,4 +1,4 @@
-<h2>Hot Topics</h2>
+<h1>Hot Topics</h1>
 {% if user.is_authenticated %}
     Welcome back,
     {% if user.username != '' %}
@@ -14,7 +14,7 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <li class="question"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
